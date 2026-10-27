@@ -6,6 +6,19 @@ from app.schemas.checkin import (
     CheckinResponse,
 )
 from app.schemas.notification import NotificationLogResponse
+from app.schemas.camera import (
+    CameraImageMetadata,
+    CameraCaptureRequest,
+    CameraCaptureResponse,
+)
+from app.schemas.safety import (
+    SafetyRiskLevel,
+    HazardItem,
+    RoomSafetyAnalysis,
+    GeminiUsageMetadata,
+    SafetyAnalyzeRequest,
+    SafetyAnalyzeResponse,
+)
 
 __all__ = [
     "EventBase",
@@ -16,4 +29,13 @@ __all__ = [
     "CheckinRespondRequest",
     "CheckinResponse",
     "NotificationLogResponse",
+    "CameraImageMetadata",
+    "CameraCaptureRequest",
+    "CameraCaptureResponse",
+    "SafetyRiskLevel",
+    "HazardItem",
+    "RoomSafetyAnalysis",
+    "GeminiUsageMetadata",
+    "SafetyAnalyzeRequest",
+    "SafetyAnalyzeResponse",
 ]

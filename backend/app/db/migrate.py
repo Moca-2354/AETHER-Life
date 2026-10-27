@@ -10,7 +10,7 @@ def migrate_db(engine: Engine):
     Ensures new tables and columns exist in the database without breaking existing data.
     """
     logger.info("[Migration] Checking and running schema migrations...")
-    # 1. Create any missing tables
+    # 1. Create any missing tables (events, checkins, notification_logs, gemini_usage_logs)
     Base.metadata.create_all(bind=engine)
 
     # 2. Check and add slot_key column to checkins if missing
