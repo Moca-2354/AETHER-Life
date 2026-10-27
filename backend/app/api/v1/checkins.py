@@ -11,6 +11,7 @@ from app.services.checkin_service import (
     CheckinService,
     CheckinNotFoundError,
     CheckinInvalidStatusError,
+    CheckinDuplicateError,
 )
 
 router = APIRouter(prefix="/checkins", tags=["checkins"])
@@ -48,4 +49,10 @@ def create_checkin(
     db: Session = Depends(get_db)
 ):
     service = CheckinService(db)
-    return service.create_checkin(checkin_in)
+    try:
+        return service.create_checkin(checkin_in, slot_key=checkin_in.slot_key)
+    except CheckinDuplicateError as e:
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT,
+            detail=str(e)
+        )

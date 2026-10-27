@@ -6,6 +6,10 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, Session
 from sqlalchemy.pool import StaticPool
 
+from app.core.config import settings
+# Disable scheduler background thread during regular API tests
+settings.CHECKIN_SCHEDULER_ENABLED = False
+
 from app.main import app
 from app.db.base import Base
 from app.db.session import get_db

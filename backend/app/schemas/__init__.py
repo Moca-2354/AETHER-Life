@@ -5,6 +5,7 @@ from app.schemas.checkin import (
     CheckinRespondRequest,
     CheckinResponse,
 )
+from app.schemas.notification import NotificationLogResponse
 
 __all__ = [
     "EventBase",
@@ -14,4 +15,5 @@ __all__ = [
     "CheckinCreate",
     "CheckinRespondRequest",
     "CheckinResponse",
+    "NotificationLogResponse",
 ]

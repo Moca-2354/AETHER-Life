@@ -20,7 +20,7 @@ class EventService:
         query = query.offset(offset).limit(limit)
         return list(self.db.scalars(query).all())
 
-    def create_event(self, event_in: EventCreate) -> Event:
+    def create_event(self, event_in: EventCreate, auto_commit: bool = True) -> Event:
         event = Event(
             event_type=event_in.event_type,
             description=event_in.description,
@@ -28,8 +28,11 @@ class EventService:
             payload=event_in.payload
         )
         self.db.add(event)
-        self.db.commit()
-        self.db.refresh(event)
+        if auto_commit:
+            self.db.commit()
+            self.db.refresh(event)
+        else:
+            self.db.flush()
         return event
 
     def log_event(
@@ -37,7 +40,8 @@ class EventService:
         event_type: str,
         description: str,
         source: str = "system",
-        payload: Optional[str] = None
+        payload: Optional[str] = None,
+        auto_commit: bool = True
     ) -> Event:
         event = Event(
             event_type=event_type,
@@ -46,6 +50,9 @@ class EventService:
             payload=payload
         )
         self.db.add(event)
-        self.db.commit()
-        self.db.refresh(event)
+        if auto_commit:
+            self.db.commit()
+            self.db.refresh(event)
+        else:
+            self.db.flush()
         return event
